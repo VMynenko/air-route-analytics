@@ -114,6 +114,21 @@ def load_gcs_to_bq(gcs_uri, table_id, gcp_conn_id="google_cloud_default"):
 Screenshot of the table creation result in Google Cloud Console   
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/bq_1.png" alt="bq" width="500" /> 
 
-## Data transformation
+## Data transformation  
+Data transformation is handled using dbt (Data Build Tool), which allows for SQL-based transformation and modeling of data in BigQuery.  
+Below are the key steps to set up and run the dbt project.  
+#### Create a new dbt project
+```bash
+dbt init my_final_project
+cd my_final_project
+```
+#### Create a transformation model  
+Create a new SQL file inside models/ (for example, transformed_airline_data.sql) and define the conversion logic using the script at this [link.](https://github.com/VMynenko/air-route-analytics/blob/main/dbt/transformed_airline_data.sql)
+
+#### Run the dbt transformations
+```bash
+dbt run
+```
+This process materializes the transformed data as a table in BigQuery, ready for analysis in Looker Studio.
 
 ## Data visualization
