@@ -15,7 +15,6 @@ This dashboard analyzes historical USA airline flight route data, containing det
 - How do pricing trends and connectivity metrics differ when analyzing specific origin-destination pairs or individual cities using the provided filters?
 
 ## Overview
-
 - **Data source** - https://www.kaggle.com/datasets  
 - **Workflow orchestration** - Airflow
 - **Data lake** - Cloud Storage
@@ -32,7 +31,7 @@ A detailed description and link to the dataset can be found [here.](https://www.
 
 ## Workflow orchestration
 The data pipeline is orchestrated using Apache Airflow, which is deployed on Google Cloud Composer. Below are the essential bash commands used to create the Composer environment, deploy DAGs, install dependencies, and set Airflow variables.  
-To reproduce the process, you need to follow these steps:  
+To replicate this setup, follow these steps:  
 #### Create Cloud Composer environment  
 ```bash
 export PROJECT_ID="your-gcp-project"
@@ -64,10 +63,11 @@ airflow variables set table_id "your-bq-table"
 ```
 Screenshots of the deployment result in Google Cloud Console  
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_1.png" />  
-
+***
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_2.png" />  
 
-The entire pipeline is executed as an Airflow DAG, which automates the data movement from Kaggle to BigQuery can be found [here.](https://github.com/VMynenko/air-route-analytics/blob/main/code/de_zoomcamp_2025_dag.py)
+The entire pipeline is executed as an Airflow DAG, which automates the data movement from Kaggle to BigQuery.  
+The DAG code can be found [here.](https://github.com/VMynenko/air-route-analytics/blob/main/code/de_zoomcamp_2025_dag.py)
 
 ## Data lake  
 The dataset is downloaded from Kaggle and stored in a Google Cloud Storage bucket using Airflow.  
@@ -89,7 +89,7 @@ def upload_file(bucket_name, source_file, gcp_conn_id=GCP_CONN_ID):
 ```
 Screenshots of the code execution result in Google Cloud Console   
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_storage_1.png" />  
-
+***
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_storage_2.png" />  
 
 ## Data warehouse
