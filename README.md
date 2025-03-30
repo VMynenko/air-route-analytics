@@ -27,8 +27,41 @@ This dashboard analyzes historical USA airline flight route data, containing det
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/pipeline.png" alt="green_taxi" width="500" />  
 
 ## Data source
+The dataset used in this project is sourced from Kaggle and provides detailed information on airline flight routes, fares, and passenger volumes within the United States from 1993 to 2024.  
+A detailed description and link to the dataset can be found [here.](https://www.kaggle.com/datasets/bhavikjikadara/us-airline-flight-routes-and-fares-1993-2024)
 
 ## Workflow orchestration
+The data pipeline is orchestrated using Apache Airflow, which is deployed on Google Cloud Composer. Below are the essential bash commands used to create the Composer environment, deploy DAGs, install dependencies, and set Airflow variables.  
+To reproduce the process, you need to follow these steps:  
+- Create Cloud Composer Environment  
+```bash
+export PROJECT_ID="your-gcp-project"
+export REGION="your-region"
+export ENV_NAME="composer-env"
+
+gcloud composer environments create $ENV_NAME \
+    --location $REGION \
+    --image-version composer-2.11.5-airflow-2.10.2 \
+    --project $PROJECT_ID
+```
+- Deploy DAGs and Requirements  
+```bash
+gcloud composer environments storage dags import \
+    --environment $ENV_NAME \
+    --location $REGION \
+    --source kaggle_to_bigquery.py
+
+gcloud composer environments storage plugins import \
+    --environment $ENV_NAME \
+    --location $REGION \
+    --source requirements.txt
+```
+- Set Airflow Variables  
+```bash
+airflow variables set dataset_name "kaggle-dataset-path"
+airflow variables set bucket_name "your-gcs-bucket"
+airflow variables set table_id "your-bq-table"
+```
 
 ## Data lake
 
