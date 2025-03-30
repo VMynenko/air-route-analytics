@@ -1,6 +1,6 @@
 # US Airline Flight Routes and Fares Analytics
 
-This is my final project for Data Engineering Zoomcamp 2025.
+This is my final project for [Data Engineering Zoomcamp 2025.](https://github.com/DataTalksClub/data-engineering-zoomcamp?tab=readme-ov-file)
 
 ## Problem Description
 
