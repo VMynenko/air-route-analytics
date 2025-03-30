@@ -131,4 +131,13 @@ dbt run
 ```
 This process materializes the transformed data as a table in BigQuery, ready for analysis in Looker Studio.
 
-## Data visualization
+## Data visualization  
+The final step of the data pipeline is visualizing the processed data in Looker Studio. The interactive dashboard provides insights into airfare trends and connectivity between U.S. cities. You can view the dashboard [here.](https://lookerstudio.google.com/reporting/62bd1ad2-47f9-469b-a515-123c91df21b7)  
+#### Dashboard Overview  
+The dashboard presents the following key metrics and visualizations:
+- Average airfare over the years – A time series visualization showing how ticket prices have changed from 1996 onward.  
+- Connectivity analysis by departure city – Displays the percentage of unique arrival cities reachable from each departure city.  
+- Connectivity analysis by arrival city – Displays the percentage of unique departure cities that serve each arrival city.  
+- Filters – Users can filter data by departure city and arrival city to focus on specific routes or regional trends.
+#### Screenshot of the dashboard:  
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/looker_studio.png" alt="ls" width="700" /> 
