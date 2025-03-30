@@ -49,7 +49,7 @@ gcloud composer environments create $ENV_NAME \
 gcloud composer environments storage dags import \
     --environment $ENV_NAME \
     --location $REGION \
-    --source kaggle_to_bigquery.py
+    --source your_dag.py
 
 gcloud composer environments storage plugins import \
     --environment $ENV_NAME \
