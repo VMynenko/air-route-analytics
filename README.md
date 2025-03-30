@@ -23,7 +23,7 @@ This dashboard analyzes historical USA airline flight route data, containing det
 - **Data visualization** - Looker Studio
 
 ## Data pipeline
-<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/pipeline.png" alt="green_taxi" width="500" />  
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/pipeline.png" alt="pipeline" width="500" />  
 
 ## Data source
 The dataset used in this project is sourced from Kaggle and provides detailed information on airline flight routes, fares, and passenger volumes within the United States from 1993 to 2024.  
@@ -62,14 +62,14 @@ airflow variables set bucket_name "your-gcs-bucket"
 airflow variables set table_id "your-bq-table"
 ```
 Screenshots of the deployment result in Google Cloud Console  
-<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_1.png" />  
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_1.png" alt="cc1" width="900" />  
 ***
-<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_2.png" />  
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_2.png" alt="cc2" width="900" /> 
 
 The entire pipeline is executed as an Airflow DAG, which automates the data movement from Kaggle to BigQuery.  
 The DAG code can be found [here.](https://github.com/VMynenko/air-route-analytics/blob/main/code/de_zoomcamp_2025_dag.py)
 
-## Data lake  
+## Data Lake (Google Cloud Storage)    
 The dataset is downloaded from Kaggle and stored in a Google Cloud Storage bucket using Airflow.  
 #### Code Snippet
 ```python
@@ -88,11 +88,31 @@ def upload_file(bucket_name, source_file, gcp_conn_id=GCP_CONN_ID):
     return f"gs://{bucket_name}/{destination_blob}"
 ```
 Screenshots of the code execution result in Google Cloud Console   
-<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_storage_1.png" />  
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_storage_1.png" alt="cs1" width="900" /> 
 ***
-<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_storage_2.png" />  
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_storage_2.png" alt="cs2" width="900" /> 
 
-## Data warehouse
+## Data Warehouse (BigQuery)  
+The CSV file stored in Google Cloud Storage is loaded into a BigQuery table using Airflow.    
+#### Code Snippet
+```python
+def load_gcs_to_bq(gcs_uri, table_id, gcp_conn_id="google_cloud_default"):
+    hook = BigQueryHook(gcp_conn_id=gcp_conn_id)
+    bigquery_client = hook.get_client()
+    job_config = bigquery.LoadJobConfig(
+        source_format=bigquery.SourceFormat.CSV,
+        skip_leading_rows=1,
+        autodetect=True,
+        write_disposition=bigquery.WriteDisposition.WRITE_TRUNCATE,
+        allow_quoted_newlines=True
+    )
+    load_job = bigquery_client.load_table_from_uri(
+        gcs_uri, table_id, job_config=job_config
+    )
+    load_job.result()
+```
+Screenshot of the table creation result in Google Cloud Console   
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/bq_1.png" alt="bq" width="500" /> 
 
 ## Data transformation
 
