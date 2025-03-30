@@ -62,6 +62,10 @@ airflow variables set dataset_name "kaggle-dataset-path"
 airflow variables set bucket_name "your-gcs-bucket"
 airflow variables set table_id "your-bq-table"
 ```
+Screenshots of the deployment result in Google Cloud Console  
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_1.png" />  
+
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_2.png" />  
 
 ## Data lake
 
