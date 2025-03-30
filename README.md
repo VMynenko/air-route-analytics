@@ -23,6 +23,9 @@ This dashboard analyzes historical USA airline flight route data, containing det
 - **Data transformation** - dbt
 - **Data visualization** - Looker Studio
 
+## Data pipeline
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/pipeline.png" alt="green_taxi" width="500" />  
+
 ## Data source
 
 ## Workflow orchestration
