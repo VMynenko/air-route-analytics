@@ -33,7 +33,7 @@ A detailed description and link to the dataset can be found [here.](https://www.
 ## Workflow orchestration
 The data pipeline is orchestrated using Apache Airflow, which is deployed on Google Cloud Composer. Below are the essential bash commands used to create the Composer environment, deploy DAGs, install dependencies, and set Airflow variables.  
 To reproduce the process, you need to follow these steps:  
-- Create Cloud Composer Environment  
+#### Create Cloud Composer environment  
 ```bash
 export PROJECT_ID="your-gcp-project"
 export REGION="your-region"
@@ -44,7 +44,7 @@ gcloud composer environments create $ENV_NAME \
     --image-version composer-2.11.5-airflow-2.10.2 \
     --project $PROJECT_ID
 ```
-- Deploy DAGs and Requirements  
+#### Deploy DAGs and requirements  
 ```bash
 gcloud composer environments storage dags import \
     --environment $ENV_NAME \
@@ -56,7 +56,7 @@ gcloud composer environments storage plugins import \
     --location $REGION \
     --source requirements.txt
 ```
-- Set Airflow Variables  
+#### Set Airflow variables  
 ```bash
 airflow variables set dataset_name "kaggle-dataset-path"
 airflow variables set bucket_name "your-gcs-bucket"
@@ -67,7 +67,30 @@ Screenshots of the deployment result in Google Cloud Console
 
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_2.png" />  
 
-## Data lake
+The entire pipeline is executed as an Airflow DAG, which automates the data movement from Kaggle to BigQuery can be found [here.](https://github.com/VMynenko/air-route-analytics/blob/main/code/de_zoomcamp_2025_dag.py)
+
+## Data lake  
+The dataset is downloaded from Kaggle and stored in a Google Cloud Storage bucket using Airflow.  
+#### Code Snippet
+```python
+def create_bucket(bucket_name, gcp_conn_id=GCP_CONN_ID):
+    hook = GCSHook(gcp_conn_id=gcp_conn_id)
+    hook.create_bucket(bucket_name=bucket_name)
+
+def upload_file(bucket_name, source_file, gcp_conn_id=GCP_CONN_ID):
+    hook = GCSHook(gcp_conn_id=gcp_conn_id)
+    destination_blob = os.path.basename(source_file)
+    hook.upload(
+        bucket_name=bucket_name,
+        object_name=destination_blob,
+        filename=source_file
+    )
+    return f"gs://{bucket_name}/{destination_blob}"
+```
+Screenshots of the code execution result in Google Cloud Console   
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_storage_1.png" />  
+
+<img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_storage_2.png" />  
 
 ## Data warehouse
 
