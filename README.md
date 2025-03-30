@@ -15,12 +15,12 @@ This dashboard analyzes historical USA airline flight route data, containing det
 - How do pricing trends and connectivity metrics differ when analyzing specific origin-destination pairs or individual cities using the provided filters?
 
 ## Overview
-- **Data source** - https://www.kaggle.com/datasets  
-- **Workflow orchestration** - Airflow
-- **Data lake** - Cloud Storage
-- **Data warehouse** - Bigquery
-- **Data transformation** - dbt
-- **Data visualization** - Looker Studio
+- Data source - https://www.kaggle.com/datasets  
+- Workflow orchestration - Airflow
+- Data lake - Cloud Storage
+- Data warehouse - Bigquery
+- Data transformation - dbt
+- Data visualization - Looker Studio
 
 ## Data pipeline
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/pipeline.png" alt="pipeline" width="500" />  
@@ -61,7 +61,7 @@ airflow variables set dataset_name "kaggle-dataset-path"
 airflow variables set bucket_name "your-gcs-bucket"
 airflow variables set table_id "your-bq-table"
 ```
-Screenshots of the deployment result in Google Cloud Console  
+**Screenshots of the deployment result in Google Cloud Console**  
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_1.png" alt="cc1" width="900" />  
 ***
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_composer_2.png" alt="cc2" width="900" /> 
@@ -87,7 +87,7 @@ def upload_file(bucket_name, source_file, gcp_conn_id=GCP_CONN_ID):
     )
     return f"gs://{bucket_name}/{destination_blob}"
 ```
-Screenshots of the code execution result in Google Cloud Console   
+**Screenshots of the code execution result in Google Cloud Console**   
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_storage_1.png" alt="cs1" width="900" /> 
 ***
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/cloud_storage_2.png" alt="cs2" width="900" /> 
@@ -111,7 +111,7 @@ def load_gcs_to_bq(gcs_uri, table_id, gcp_conn_id="google_cloud_default"):
     )
     load_job.result()
 ```
-Screenshot of the table creation result in Google Cloud Console   
+**Screenshot of the table creation result in Google Cloud Console**   
 <img src="https://github.com/VMynenko/air-route-analytics/blob/main/docs/bq_1.png" alt="bq" width="500" /> 
 
 ## Data transformation  
