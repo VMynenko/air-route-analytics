@@ -13,3 +13,24 @@ This dashboard analyzes historical USA airline flight route data, containing det
 - Which destination cities are accessible from the broadest set of origin points (measured by the percentage of unique origins served relative to all origins)?
 
 - How do pricing trends and connectivity metrics differ when analyzing specific origin-destination pairs or individual cities using the provided filters?
+
+## Overview
+
+- **Data source** - https://www.kaggle.com/datasets  
+- **Workflow orchestration** - Airflow
+- **Data lake** - Cloud Storage
+- **Data warehouse** - Bigquery
+- **Data transformation** - dbt
+- **Data visualization** - Looker Studio
+
+## Data source
+
+## Workflow orchestration
+
+## Data lake
+
+## Data warehouse
+
+## Data transformation
+
+## Data visualization
