@@ -125,8 +125,9 @@ cd my_final_project
 #### Create a transformation model  
 Create a new SQL file inside models/ (for example, transformed_airline_data.sql) and define the conversion logic using the script at this [link.](https://github.com/VMynenko/air-route-analytics/blob/main/dbt/transformed_airline_data.sql)
 
-#### Run the dbt transformations
+#### Build and Run the dbt transformations
 ```bash
+dbt build --select transformed_airline_data.sql
 dbt run
 ```
 This process materializes the transformed data as a table in BigQuery, ready for analysis in Looker Studio.
